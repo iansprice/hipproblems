@@ -1,7 +1,10 @@
 from tornado import gen
+from itertools import chain
 import simplejson as json
 import os
 from random import randint
+from functools import reduce
+
 
 class Scraper(object):
 
@@ -32,3 +35,20 @@ class Scraper(object):
             data['ecstasy'] = randint(1, 1000)
             self.results.append(data)
 
+
+class GeneratorPipeline(object):
+    '''
+    Chain generators together into a single generator
+    :param steps: 
+    :return: 
+    '''
+
+    def __init__(self, generators):
+        self.generators = generators
+
+    @gen.coroutine
+    def run(self):
+        generator_list = [Generator() for Generator in self.generators]
+        results = yield [gen.Task(generator.run)
+                         for generator in generator_list]
+        raise gen.Return(results)

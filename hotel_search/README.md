@@ -1,3 +1,17 @@
+# Running the project
+
+Run `python -m hotel_search.scraperapi` to start up both the standard provider api engine (running on port 9000) and the 'all scraper' api (port 8000). 
+ 
+Once running, results can be seen at `http://127.0.0.1:8000/hotels/search`
+
+Tornado was used in order to take advantage of asynchronous coroutines.
+
+
+
+
+
+### (See below for the original Hipmunk Coding Challenges readme) 
+
 # Building a Hotel Search API
 
 When a user runs a hotel search on Hipmunk we search many partner sites simultaneously to ensure we give them the best options. In this problem, you'll build an API that queries each of our different partners and merges their results together.
